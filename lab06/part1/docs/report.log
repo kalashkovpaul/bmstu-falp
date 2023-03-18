@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.17)  18 MAR 2023 13:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.17)  18 MAR 2023 14:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1363,11 +1363,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 15--19
  []
 
 
-Overfull \hbox (0.8264pt too wide) in paragraph at lines 26--31
-\T2A/cmr/bx/n/12 Тема $[]$ 
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 26--31
 
  []
@@ -1412,11 +1407,6 @@ _logo.jpg>])
 
  (./main.tex
 {\cyrillictext \CYRG \cyrl \cyra \cyrv \cyra } 1.
-
-Overfull \hbox (9.95192pt too wide) in paragraph at lines 3--3
- |\T2A/cmr/bx/n/20.74 Задание 1. На-пи-ши-те функ-цию, ко-то-рая умень-
- []
-
 (/usr/local/texlive/2022/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
 )
@@ -1434,47 +1424,41 @@ File: t2acmtt.fd 2001/08/11 v1.0a Computer Modern Cyrillic font definitions
 (../src/main.lsp) (../src/main.lsp
 consecutive:
 )
+Overfull \hbox (2.52788pt too wide) in paragraph at lines 23--23
+ \T2A/cmr/bx/n/20.74 ко-то-рая умно-жа-ет на за-дан-ное число-аргумент
+ []
+
+
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.28 	]{../src/main.lsp}
-                         [1
+l.26 Р±
+       ) СЌР»РµРјРµРЅС‚С‹ СЃРїРёСЃРєР° -- Р»СЋР±С‹Рµ РѕР±СЉРµРєС‚С‹. [1
 
 
 
 
 
-] (../src/main.lsp
+]
+(../src/main.lsp
 consecutive:
-) (../src/main.lsp
-consecutive:
-) (../src/main.lsp
-consecutive:
-[2]) [3] (../src/main.lsp
+) [2] (../src/main.lsp
 consecutive:
 )
-Overfull \hbox (1.9777pt too wide) in paragraph at lines 63--63
- |\T2A/cmr/bx/n/20.74 Задание 4. На-пи-сать функ-цию, ко-то-рая по сво-
+Overfull \hbox (22.71188pt too wide) in paragraph at lines 47--47
+ \T2A/cmr/bx/n/20.74 ко-то-рая из списка-аргумента, со-дер-жа-ще-го толь-
  []
 
 (../src/main.lsp
 consecutive:
-) [4
+) [3
 
 ] (../src/main.lsp
 consecutive:
 ) (../src/main.lsp
 consecutive:
-) [5] (../src/main.lsp
-consecutive:
-) (../src/main.lsp
-consecutive:
-) [6] (../src/main.lsp
-consecutive:
-)) [7
-
-]
+)) [4]
 
 Package caption Warning: Unused \captionsetup[figure] on input line 15.
 See the caption package documentation for explanation.
@@ -1484,13 +1468,13 @@ Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: CDFFD52F05E69D9FE53480D863860377;203.
  ) 
 Here is how much of TeX's memory you used:
- 40040 strings out of 478268
- 924444 string characters out of 5846347
- 1514602 words of memory out of 5000000
- 57428 multiletter control sequences out of 15000+600000
+ 39959 strings out of 478268
+ 923284 string characters out of 5846347
+ 1516966 words of memory out of 5000000
+ 57414 multiletter control sequences out of 15000+600000
  481362 words of font info for 52 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 106i,6n,99p,759b,2194s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 106i,6n,99p,759b,1775s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t2a.enc
 }</usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb><
 /usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfbx2074.pfb></u
@@ -1499,10 +1483,10 @@ sr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb></usr
 ocal/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/loc
 al/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local
 /texlive/2022/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on report.pdf (8 pages, 184315 bytes).
+Output written on report.pdf (5 pages, 167502 bytes).
 PDF statistics:
- 223 PDF objects out of 1000 (max. 8388607)
- 198 compressed objects within 2 object streams
- 121 named destinations out of 1000 (max. 500000)
+ 143 PDF objects out of 1000 (max. 8388607)
+ 121 compressed objects within 2 object streams
+ 64 named destinations out of 1000 (max. 500000)
  46 words of extra memory for PDF output out of 10000 (max. 10000000)
 
