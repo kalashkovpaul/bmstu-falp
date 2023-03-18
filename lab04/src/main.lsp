@@ -172,7 +172,7 @@
 
 (defun mul_first_num (lst num)
     (cond
-        ((and (numberp (car lst)) (numberp num)) (* (car lst) num))
+        ((and (numberp (car lst)) (numberp num)) (* (car lst) num)))
         ((cdr lst) (mul_first_num (cdr lst) num))
         (T Nil)
     )
