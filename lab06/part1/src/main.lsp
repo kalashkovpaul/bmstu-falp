@@ -65,3 +65,35 @@
     )
 )
 
+
+(defun get_first_list (lst)
+    (cond ((null lst) nil)
+        ((listp (car lst)) (car (car lst)))
+        (T (get_first_list (cdr lst)))
+    )
+)
+
+(defun f_a (lst num res)
+    (cond ((null lst) res)
+        ((numberp (car lst)) (f_a (cdr lst) num (cons (* (car lst) num) res)))
+        (T (f_a (cdr lst) num (cons (car lst) res)))
+    )
+)
+
+(defun f_b (lst num res)
+    (cond ((null lst) res)
+        (T (f_b (cdr lst) num (cons (* (car lst) num) res)))
+    )
+)
+
+(defun select-between (lst left right &optional (res ())) (
+    cond ((< right left) Nil)
+        (T (
+            sort (cond ((null lst) nil)
+                (T (cond ((and (> (car lst) left) (> right (car lst)))
+                    (select-between (cdr lst) left right (cons (car lst) res)))
+                    (T (select-between (cdr lst) left right res)))
+                )
+             lst #'<
+        ))
+))

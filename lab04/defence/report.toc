@@ -1,0 +1,3 @@
+\babel@toc {russian}{}\relax 
+\contentsline {chapter}{Введение}{3}{chapter*.2}%
+\contentsline {chapter}{Список использованных источников}{9}{figure.caption.10}%
