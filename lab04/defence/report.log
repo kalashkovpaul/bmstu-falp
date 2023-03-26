@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.17)  26 MAR 2023 11:04
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.17)  26 MAR 2023 18:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1440,7 +1440,7 @@ Overfull \hbox (10.49916pt too wide) in paragraph at lines 170--173
 мо за-пу-стить ClojureScript
  []
 
-) [11]
+[11] [12] [13] [14] [15]) [16]
 \openout2 = `lib.aux'.
 
  (./lib.tex (./report.bbl
@@ -1455,7 +1455,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 32--37
  edu / people / boyko / pubs / MatrixMult _
  []
 
-)) [12
+)) [17
 
 
 
@@ -1465,23 +1465,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 32--37
 
 LaTeX Warning: There were multiply-defined labels.
 
-
-Package rerunfilecheck Warning: File `report.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `report.out':
-(rerunfilecheck)             Before: B8B8BF96486FF29680077A180E72830B;413
-(rerunfilecheck)             After:  23847C7D8DE60C0F3E266A03ADCFEA55;414.
+Package rerunfilecheck Info: File `report.out' has not changed.
+(rerunfilecheck)             Checksum: 2FBB3807D831FFE89F2304CE18AEFD5D;416.
  ) 
 Here is how much of TeX's memory you used:
- 38907 strings out of 478268
- 906982 string characters out of 5846347
- 1399631 words of memory out of 5000000
- 56349 multiletter control sequences out of 15000+600000
+ 39158 strings out of 478268
+ 910883 string characters out of 5846347
+ 1574818 words of memory out of 5000000
+ 56403 multiletter control sequences out of 15000+600000
  485323 words of font info for 60 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 106i,7n,99p,759b,2018s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 106i,7n,99p,759b,2020s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t2a.enc
 }{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}
 </usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></
@@ -1494,10 +1488,10 @@ texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfsi1200.pfb></usr/local/te
 xlive/2022/texmf-dist/fonts/type1/public/cm-super/sfss1200.pfb></usr/local/texl
 ive/2022/texmf-dist/fonts/type1/public/cm-super/sfsx1200.pfb></usr/local/texliv
 e/2022/texmf-dist/fonts/type1/public/cm-super/sftt1440.pfb>
-Output written on report.pdf (12 pages, 3293879 bytes).
+Output written on report.pdf (17 pages, 3324116 bytes).
 PDF statistics:
- 222 PDF objects out of 1000 (max. 8388607)
- 179 compressed objects within 2 object streams
- 72 named destinations out of 1000 (max. 500000)
+ 479 PDF objects out of 1000 (max. 8388607)
+ 428 compressed objects within 5 object streams
+ 269 named destinations out of 1000 (max. 500000)
  89 words of extra memory for PDF output out of 10000 (max. 10000000)
 
