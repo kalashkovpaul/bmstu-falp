@@ -81,6 +81,104 @@ sudo apt-get install sbcl
 
 \section*{Hello World, ClojureScript}
 
+Чтобы запустить Hello World с использованием ClojureScript, мы будем выполнять действия по следующему гайду:
+
+\url{https://clojurescript.org/guides/quick-start}
+
+Для этого создадим папку hello-world и настроим её содержимое следующим образом: 
+
+\clearpage
+
+\begin{center}
+	\captionsetup{justification=raggedright,singlelinecheck=off}
+	\begin{lstlisting}[label=lst:clojurehelloworld,caption=ClojureScirpt, Hello World]
+hello-world        # Our project folder
+	src             # The CLJS source code for our project
+		hello_world  # Our hello_world namespace folder
+			core.cljs # Our main file
+	cljs.jar        # (Windows only) The standalone Jar you downloaded earlier
+	deps.edn        # (macOS/Linux only) A file for listing our dependencies
+	\end{lstlisting}
+\end{center}
+
+Содержимое deps.edn:
+
+\begin{center}
+	\captionsetup{justification=raggedright,singlelinecheck=off}
+	\begin{lstlisting}[label=lst:clojurehelloworld-1,caption=Содержимое deps.edn]
+{:deps {org.clojure/clojurescript {:mvn/version "1.11.54"}}}
+	\end{lstlisting}
+\end{center}
+
+Содержимое src/hello\_world/core.cljs:
+
+\begin{center}
+	\captionsetup{justification=raggedright,singlelinecheck=off}
+	\begin{lstlisting}[label=lst:clojurehelloworld-1,caption=Содержимое src/hello\_world/core.cljs]
+(ns hello-world.core)
+
+(println "Hello world!")
+	\end{lstlisting}
+\end{center}
+
+После чего запустим в терминал следующую команду:
+
+\begin{center}
+	\captionsetup{justification=raggedright,singlelinecheck=off}
+	\begin{lstlisting}[label=lst:clojurehelloworld-1,caption=Запуск в терминале]
+clj -M --main cljs.main --compile hello-world.core --repl
+	\end{lstlisting}
+\end{center}
+
+В браузере при этом должна открыться следующая страница:
+
+\imgScale{0.5}{browser}{Hello, World!}
+
+После этого в терминале, из которого произходил запуск, должно появиться сообщение Hello World!
+
+Попробуем добавить несколько функций. Для этого изменим содержимое src/hello\_world/core.cljs:
+
+\begin{center}
+	\captionsetup{justification=raggedright,singlelinecheck=off}
+	\begin{lstlisting}[label=lst:clojurehelloworld-1,caption=Содержимое src/hello\_world/core.cljs]
+(ns hello-world.core)
+
+(println "Hello world!")
+
+;; ADDED
+(defn average [a b]
+	(/ (+ a b) 2.0))
+	
+(defn plus [a b]
+	(+ a b))
+	\end{lstlisting}
+\end{center}
+
+Перекомпилируем рабочее пространство, выполнив в терминале следующие команды:
+
+\begin{center}
+	\captionsetup{justification=raggedright,singlelinecheck=off}
+	\begin{lstlisting}[label=lst:clojurehelloworld-2,caption=Обновление страницы проверка новых функций ]
+(require '[hello-world.core :as hello] :reload)
+(hello/average 20 13)
+(hello/plus 1 21)
+\end{lstlisting}
+\end{center}
+
+В терминале должны отобразиться результаты работы функций - числа 16.5 и 22.
+
+Отдельно отметим, что в папке out можно найти скомпилированный \newline JavaScript код.
+Исследовав её содержимое, можно придти к выводу, что полученный  код является ни слишком оптимизированным.
+Для того, чтобы получить более оптимизированную версию кода, необходимо запустить ClojureScript компилятор со следующими опциями:
+
+\begin{center}
+	\captionsetup{justification=raggedright,singlelinecheck=off}
+	\begin{lstlisting}[label=lst:clojurehelloworld-3,caption=Получени оптимизированной сборки]
+clj -M -m cljs.main --optimizations advanced -c hello-world.core
+	\end{lstlisting}
+\end{center}
+
+
 
 
 %\section{Матрица}
