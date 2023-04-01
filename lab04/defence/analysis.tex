@@ -180,28 +180,210 @@ clj -M -m cljs.main --optimizations advanced -c hello-world.core
 
 Оптимизированная сборка (со значением advanced) может быть использована для получения итоговой сборки, которая будет использована не разработчиками, а пользователями.
 
-\section*{Нахождение обратной матрицы, ClojureScript}
+\section*{Примеры}
 
-Как более сложный пример программы на ClojureScript предлагается рассмотреть функции нахождения для квадратной матрицы обратной матрицы и детерминанта: 
+Рассмотрим подробнее основные синтаксические конструкции ClojureScript на примерах.
+
+\subsubsection*{Создание переменных и констант}
+
+Создать переменные и константы в ClojureScript можно несколькими способами, при помощи ключевых слов def,  let, а также конструкции with-local-vars.
+Рассмотрим каждую из них подробнее.
+
+Ключевое слово def по своему действию похоже на var в JavaScript --- оно создаёт глобальную переменную, связывая его со значением:
 
 \begin{center}
 	\captionsetup{justification=raggedright,singlelinecheck=off}
-	\begin{lstlisting}[label=lst:clojurehelloworld-4,caption=Нахождение обратной матрицы]
-(ns hello-repl)
+	\begin{lstlisting}[label=lst:var_usage,caption=Использование var]
+(def my-name "Fred")                                     
 
-(defn matMake
-  [rows cols val]
-  (with-local-vars [result [], i 0, j 0, tmp []]
-	(while (< @i rows)
-	  (var-set tmp [])
-	  (var-set j 0)
-	  (while (< @j cols)
-		(var-set tmp (conj @tmp val))
-		(var-set j (inc @j)))
-	  (var-set result (conj @result @tmp))
-	  (var-set i (inc @i)))
-	@result))
+my-name
+;; "Fred"
+	\end{lstlisting}
+\end{center}
 
+При этом даже если def используется внутри функции, создаваемая переменная всё равно будет глобальной:
+
+\begin{center}
+	\captionsetup{justification=raggedright,singlelinecheck=off}
+	\begin{lstlisting}[label=lst:var_usage_in_function,caption=Использование var внутри функции]
+(defn mk-global [value]
+  (def i-am-global value))
+
+mk-global                                                 
+
+(mk-global [4 8 15 16 23 42])
+
+i-am-global                                                
+;; [4 8 15 16 23 42]
+	\end{lstlisting}
+\end{center}
+
+Для того, чтобы использовать локальные константы и локальные переменые, существуют let и with-local-vars. Использование let осуществляется следующим образом:
+
+\begin{center}
+	\captionsetup{justification=raggedright,singlelinecheck=off}
+	\begin{lstlisting}[label=lst:let_usage,caption=Правило использования let]
+(let [bindings]
+  expr1
+  expr2
+  ...
+  expr-n)
+	\end{lstlisting}
+\end{center}
+
+Так, для того, чтобы создать локальную константу c именем a со значением 10 и тут же вычислить её, нужно написать следующее:
+\begin{center}
+	\captionsetup{justification=raggedright,singlelinecheck=off}
+	\begin{lstlisting}[label=lst:let_usage-1,caption=Пример использования let]
+(let [y 10]  y) ;; 10
+	\end{lstlisting}
+\end{center}
+
+Локальные переменые же создаются при помощи конструкции with-local-vars, которая имеет абсолютно аналогичный синтаксис:
+
+\begin{center}
+	\captionsetup{justification=raggedright,singlelinecheck=off}
+	\begin{lstlisting}[label=lst:with-local-vars,caption=Пример использования with-local-vars]
+(defn example [x]
+	(with-local-vars [y 10 z x]
+		(+ @y @z)))
+	\end{lstlisting}
+\end{center}
+
+Данная функция складывает переданое ей число и 10. Для того, чтобы изменить значение переменной, необходимо использовать функцию var-set, а для того, чтобы получить её значение - функцию var-get или символ @:
+
+\begin{center}
+	\captionsetup{justification=raggedright,singlelinecheck=off}
+	\begin{lstlisting}[label=lst:with-local-vars,caption=Пример использования with-local-vars]
+(defn example [x]
+	(with-local-vars [y 10 z x]
+		(var-set y 20)
+		(+ @y (var-get z))))
+	\end{lstlisting}
+\end{center}
+
+Данная функция складывает переданное ей число и 20, при этом осуществляет запись значения 20 в локальную переменную.
+
+\subsubsection*{Осуществление выбора}
+
+Как условные конструкции в ClojureScript  рекомендуется использовать ключевые слова if, cond и then. Использование if осуществляется следующим образом: 
+
+\begin{center}
+	\captionsetup{justification=raggedright,singlelinecheck=off}
+	\begin{lstlisting}[label=lst:if-usage,caption=Синтаксис использования if]
+(if test-expr then-expr else-expr)
+	\end{lstlisting}
+\end{center}
+
+Таким образом, if принимает 3 выражения: условие, выражение, которое будет вычислено в случае истинности условия и выражение, вычисленое в случае, если условие окажется ложным. По своему действию if в ClojureScript похоже на работу тернарного оператора в JavaScript.
+
+Использование if удобно при небольшой вложенности вычисляемых выражений. Если уровень вложенности больше трёх, рекомендуется использовать функцию cond, которая работает, аналогично switch-case конструкции в других языках программирования:
+
+\begin{center}
+	\captionsetup{justification=raggedright,singlelinecheck=off}
+	\begin{lstlisting}[label=lst:cond-usage,caption=Пример использования cond]
+(let [grade 85]
+         (cond
+           (>= grade 90) "A"
+           (>= grade 80) "B"
+           (>= grade 70) "C"
+           (>= grade 60) "D"
+           :else "F"))
+	\end{lstlisting}
+\end{center}
+
+Использование слова  when похоже на if, но без вычисления выражений в случае, когда условие ложно:
+\begin{center}
+	\captionsetup{justification=raggedright,singlelinecheck=off}
+	\begin{lstlisting}[label=lst:when,caption=Синтаксис использования when]
+(when test-expr some-value)
+	\end{lstlisting}
+\end{center}
+
+\subsubsection*{Использование циклов}
+
+В ClojureScript существуют циклы с счётчиком (for), циклы с предусловием (while), а также конструкции loop, recur и doseq.
+
+Цикл c счётчиком for работает следующим образом:
+
+\begin{center}
+	\captionsetup{justification=raggedright,singlelinecheck=off}
+	\begin{lstlisting}[label=lst:for-usage,caption=Синтаксис использования for для 2-х последовательностей]
+(for [elem1 sequence1                                    
+      elem2 sequence2]                                   
+  expr)
+	\end{lstlisting}
+\end{center}
+
+Этот цикл  for состоит из трёх основных этапов, 
+
+Он связывает каждый элемент из последовательности sequence1 к  счётчику elem1, делает то же самое для последовательности sequence2,  после чего вычисляет в очередной итерации выражение expr с использованием текущей комбинации элементов elem1 и elem2.
+
+Так, чтобы вычислить квадраты всех чисел от 0 до 10, необходимо написать следующее:
+
+
+\begin{center}
+	\captionsetup{justification=raggedright,singlelinecheck=off}
+	\begin{lstlisting}[label=lst:for-example-1,caption=Пример использования for для одной последовательности]
+(for [n (range 10)]                                        
+  (* n n))                                                
+;; (0 1 4 9 16 25 36 49 64 81)
+	\end{lstlisting}
+\end{center}
+
+Цикл с счётчиком for может быть использован для получения, например, декатового произведения набора последовательностей:
+
+\begin{center}
+	\captionsetup{justification=raggedright,singlelinecheck=off}
+	\begin{lstlisting}[label=lst:for-example-2,caption=Пример использования for для трёх последовательностей]
+(let [colors [:magenta :chartreuse :taupe]                 
+      sizes [:sm :md :lg :xl]
+      styles [:budget :plain :fancy]]
+  (for [color colors                                       
+        size sizes
+        style styles]
+    [color size style]))                                   
+;; ([:magenta :sm :plain] [:magenta :sm :regular] [:magenta :sm :fancy]
+;; ... [:taupe :xl :plain] [:taupe :xl :regular] [:taupe :xl :fancy])
+	\end{lstlisting}
+\end{center}
+
+Также у ключевого слова for  имеются параметры, позволяющие лучше настраивать его работу: let, when и while, принцип работы которых можно понять на следующем примере:
+
+\begin{center}
+	\captionsetup{justification=raggedright,singlelinecheck=off}
+	\begin{lstlisting}[label=lst:for-example-3,caption=Пример использования for с let, when и while]
+(for [n (range 100)                                        
+      :let [square (* n n)]                                
+      :when (even? n)                                      
+      :while (< n 20)]                                  
+  (str "n is " n " and its square is " square))           
+
+;; ("n is 0 and its square is 0"
+;; "n is 2 and its square is 4"
+;; "n is 4 and its square is 16"
+;; ...
+;; "n is 18 and its square is 324")
+	\end{lstlisting}
+\end{center}
+
+Таким образом, let  позволяет создать локальные переменные для тела цикла for, when и while определить, для каких значений вычислить это тело. Найти различие между when и while предлагается самостоятельно.
+
+
+Цикл с предусловием while работает так же, как и в других языках программирования: 
+
+\begin{center}
+	\captionsetup{justification=raggedright,singlelinecheck=off}
+	\begin{lstlisting}[label=lst:while-example-3,caption=Синтаксис использования while]
+(while test & body)
+	\end{lstlisting}
+\end{center}
+
+Предлагается рассмотреть работу цикла while на примере функции, создающей вектор переданной размерности, состоящий из элементов с переданным значением (функция conj позволяет добавить значение в конец списка, а функция inc --- увеличить значение на 1):
+
+\begin{center}
+	\captionsetup{justification=raggedright,singlelinecheck=off}
+	\begin{lstlisting}[label=lst:while-example,caption=Пример использования while]
 (defn vecMake
   [n val]
   (with-local-vars [result [], i 0]
@@ -209,178 +391,21 @@ clj -M -m cljs.main --optimizations advanced -c hello-world.core
 	  (var-set result (conj @result val))
 	  (var-set i (inc @i)))
 	@result))
-
-(defn matDecompose
-  [matrix n lum perm result]
-  (with-local-vars [tmp [], toggle 1, i 0, j 0, k 0, mx 0.0, piv 0, xij 0.0, ij 0.0, t 0.0]
-	(while (< @i n)
-	  (var-set j 0)
-	  (var-set tmp [])
-	  (while (< @j n)
-		(var-set tmp (conj @tmp ((matrix @i) @j)))
-		(var-set j (inc @j)))
-	  (var-set lum (assoc @lum @i @tmp))
-	  (var-set i (inc @i)))
-
-	(var-set i 0)
-	(var-set tmp [])
-	(while (< @i n)
-	  (var-set tmp (conj @tmp @i))
-	  (var-set i (inc @i)))
-	(var-set perm (vec @tmp))
-
-	(var-set i 0)
-	(var-set j 0)
-	(while (< @j (- n 1))
-	  (var-set mx (abs ((@lum @j) @j)))
-	  (var-set piv @j)
-	  (var-set i (inc @j))
-
-	  (while (< @i n)
-		(var-set ij (abs ((@lum @i) @j)))
-		(if (> @ij @mx)
-		  (do
-			(var-set mx @ij)
-			(var-set piv @i)
-			true))
-
-		(var-set i (inc @i)))
-
-	  (if-not (= @piv @j)
-		(do (var-set t (@lum @piv))
-			(var-set lum (assoc @lum @piv (@lum @j)))
-			(var-set lum (assoc @lum @j @t))
-
-			(var-set t (@perm @piv))
-			(var-set perm (assoc @perm @piv (@perm @j)))
-			(var-set perm (assoc @perm @j @t))
-
-			(var-set toggle (* -1 @toggle))
-			true))
-
-	  (var-set xij ((@lum @j) @j))
-	  (if-not (= @xij 0)
-		(do
-		  (var-set i (inc @j))
-
-		  (while (< @i n)
-			(var-set tmp (@lum @i))
-			(var-set ij (/ ((@lum @i) @j) @xij))
-			(var-set tmp (assoc @tmp @j @ij))
-			(var-set k (inc @j))
-			(var-set lum (assoc @lum @i @tmp))
-
-			(while (< @k n)
-
-			  (var-set tmp (assoc @tmp @k (- (@tmp @k) (* ((@lum @j) @k) @ij))))
-			  (var-set k (inc @k)))
-
-			(var-set lum (assoc @lum @i @tmp))
-
-			(var-set i (inc @i)))
-
-		  true))
-	  (var-set j (inc @j)))
-
-
-	(var-set result @toggle)))
-
-(defn matDeterminant
-  [matrix n]
-  (with-local-vars [result 0, lum (matMake n n 0.0), perm (vecMake n 0.0), i 0]
-	(matDecompose matrix n lum perm result)
-	(while (< @i n)
-	  (var-set result (* @result ((@lum @i) @i)))
-	  (var-set i (inc @i)))
-	@result))
-
-(defn myReduce
-  [n lum b x]
-  (with-local-vars [i 0, j 0, tmp [], sum 0.0]
-
-	(var-set i 0)
-	(var-set tmp [])
-	(while (< @i n)
-	  (var-set tmp (conj @tmp (@b @i)))
-	  (var-set i (inc @i)))
-	(var-set x (vec @tmp))
-
-	(var-set i 1)
-	(while (< @i n)
-	  (var-set sum (@x @i))
-	  (var-set j 0)
-
-	  (while (< @j @i)
-		(var-set sum (- @sum (* ((@lum @i) @j) (@x @j))))
-		(print @sum)
-		(print "\n")
-		(var-set j (inc @j)))
-
-	  (var-set x (assoc @x @i @sum))
-
-	  (var-set i (inc @i)))
-	(var-set x (assoc @x (- n 1) (/ (@x (- n 1)) ((@lum (- n 1)) (- n 1)))))
-
-	(var-set i (- n 2))
-
-	(while (>= @i 0)
-	  (var-set sum (@x @i))
-	  (var-set j (inc @i))
-	  (while (< @j n)
-		(var-set sum (- @sum (* ((@lum @i) @j) (@x @j))))
-		(print @sum)
-		(print "\n")
-		(var-set j (inc @j)))
-	  (var-set x (assoc @x @i (/ @sum ((@lum @i) @i))))
-
-	  (var-set i (dec @i)))
-	@x))
-
-(defn matInverse
-  [matrix n]
-  (with-local-vars [result (matMake n n 0.0), lum (matMake n n 0.0), perm (vecMake n 0.0), i 0, j 0, tmp [], det 0.0, b (vecMake n 0.0), x (vecMake n 0.0)]
-
-	(while (< @i n)
-	  (var-set j 0)
-	  (var-set tmp [])
-	  (while (< @j n)
-		(var-set tmp (conj @tmp ((matrix @i) @j)))
-		(var-set j (inc @j)))
-	  (var-set result (assoc @result @i @tmp))
-	  (var-set i (inc @i)))
-
-	(matDecompose matrix n lum perm det)
-
-	(var-set i 0)
-	(while (< @i n)
-	  (var-set j 0)
-	  (while (< @j n)
-		(if (= @i (@perm @j))
-		  (var-set b (assoc @b @j 1.0))
-		  (var-set b (assoc @b @j 0.0)))
-		(var-set j (inc @j)))
-
-	  (myReduce n lum b x)
-
-	  (var-set j 0)
-	  (while (< @j n)
-		(var-set tmp (@result @j))
-		(var-set tmp (assoc @tmp @i (@x @j)))
-		(var-set result (assoc @result @j @tmp))
-		(var-set j (inc @j)))
-
-	  (var-set i (inc @i)))
-
-
-	@result))
-
-;; (matDeterminant [[1.0 2.0] [3.0 4.0]] 2)
-;; (matDeterminant [[1.0 2.0 3.0] [4.0 5.0 6.0] [7.0 8.0 9.0]] 3)
-;; (matInverse [[1.0 2.0] [3.0 4.0]] 2)
-;; (matInverse [[3.0 7.0 2.0 5.0] [4.0 0.0 1.0 1.0] [1.0 6.0 3.0 0.0] [2.0 8.0 4.0 3.0]] 4)
 	\end{lstlisting}
 \end{center}
 
+
+\section*{Полезные ссылки для дальнейшего изучения}
+
+\url{https://clojurescript.org/} ---  официальный сайт ClojureScript
+
+\url{https://www.learn-clojurescript.com/} --- учебник по ClojureScript на английском
+
+\url{https://clojuredocs.org/} ---  документация ClojureScript с примерами работы
+
+\url{https://ericnormand.me/guide/clojurescript-tutorial} --- краткий учебник по созданию простого  web-приложения на ClojureScript
+
+\url{https://lambdaisland.com/guides/clojure-repls/clojurescript-repls} --- краткий справочник по использованию ClojureScript в разных окружениях
 
 
 %\section{Матрица}

@@ -1,3 +1,2 @@
 \babel@toc {russian}{}\relax 
 \contentsline {chapter}{Введение}{3}{chapter*.2}%
-\contentsline {chapter}{Список использованных источников}{17}{lstnumber.0.11.191}%
