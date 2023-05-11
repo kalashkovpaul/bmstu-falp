@@ -34,7 +34,7 @@ clauses
   sumOdd(List, Result) :- sumOdd(List, 0, Result).
   sumOdd([], Result, Result) :- !.
   sumOdd([_], Result, Result) :- !.
-  sumOdd([_|[H|T]], Cur, Result) :-
+  sumOdd([_, H|[T]], Cur, Result) :-
     NextCur = Cur + H,
     sumOdd(T, NextCur, Result).
 
